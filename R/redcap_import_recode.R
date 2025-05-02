@@ -18,7 +18,7 @@
 #'running this function.
 #'
 #'
-#'@param selected_data Data to be recoded
+#'@param input_data Data to be recoded
 #'@param dict Data dictionary (e.g. as downloaded from REDCap or via
 #'  \code{redcap_export_meta(rc_token, rc_url)$meta}). If not supplied, this
 #'  will be downloaded from the API using \code{rc_token} and \code{rc_token}.
@@ -103,7 +103,7 @@
 
 
 
-redcap_import_recode <- function(selected_data,
+redcap_import_recode <- function(input_data,
                                  dict = NULL,
                                  missing_codes = NULL,
                                  rc_token,
@@ -129,7 +129,7 @@ redcap_import_recode <- function(selected_data,
   # evaluate inputs ----
 
   # data
-  check_data(selected_data)
+  check_data(input_data)
 
 
   # dict
@@ -382,7 +382,7 @@ redcap_import_recode <- function(selected_data,
 
   # open log-files ----
   if(log) {
-    write.table(paste0("\n\n",format(Sys.time(), "%Y-%m-%d %H:%M:%S"),":\n\nrecoded_data <- mutate(",deparse(substitute(selected_data))), log_code, quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
+    write.table(paste0("\n\n",format(Sys.time(), "%Y-%m-%d %H:%M:%S"),":\n\nrecoded_data <- mutate(",deparse(substitute(input_data))), log_code, quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
     write.table(paste0("\n, across(everything(), as.character)"), log_code, quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 
     write.table(paste0("\n\n",format(Sys.time(), "%Y-%m-%d %H:%M:%S")), log_table, quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
@@ -392,7 +392,7 @@ redcap_import_recode <- function(selected_data,
 
   # read data & dict, prepare output variables ----
 
-  name_vars <- colnames(selected_data)
+  name_vars <- colnames(input_data)
 
   rc_spec <- dict |>
     select(field_name,
@@ -410,7 +410,7 @@ redcap_import_recode <- function(selected_data,
 
   # start variable for-loop ----
 
-  for (i in seq_along(name_vars)[start_var:ncol(selected_data)]) {
+  for (i in seq_along(name_vars)[start_var:ncol(input_data)]) {
 
     # initiate option to go back with a while loop
     goback = TRUE
@@ -438,7 +438,7 @@ redcap_import_recode <- function(selected_data,
 
       ## summarize data and RC dict ----
 
-      var <- selected_data[,i]
+      var <- input_data[,i]
       name <- name_vars[i]
 
 
@@ -2120,7 +2120,7 @@ redcap_import_recode <- function(selected_data,
                 paste0(
                 "\n) |> \n
                 mutate(n = row_number()) |>
-                left_join(data.frame(var = ",deparse(substitute(selected_data)),"$",name,") |>
+                left_join(data.frame(var = ",deparse(substitute(input_data)),"$",name,") |>
                 mutate(n= row_number(),
                 var = gsub('",gsub("(\\\\)", "\\\\\\\\", pattern),"','split_here', var)
                 ) |>
@@ -2192,7 +2192,7 @@ redcap_import_recode <- function(selected_data,
 
 
   # execute code ----
-  recoded_data <- selected_data |>
+  recoded_data <- input_data |>
     mutate(!!!vars_recode) |>
     select(-all_of(remove_cb_col))
 
