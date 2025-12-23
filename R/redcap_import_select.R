@@ -237,7 +237,7 @@ redcap_import_select <- function(input_data,
     while (intro_ans != "y") {
       intro_ans <- readline(prompt="Answer= ")
       if (intro_ans != "y") {
-        cat("Please check your answer!")
+        cat("\nPlease check your answer!")
         cat(paste0("\nType ",green(bold("y")), " and press Enter to continue."))
         cat(paste0("\nPress ",red(bold("ESC"))," to stop.\n"))
       }
@@ -293,17 +293,17 @@ redcap_import_select <- function(input_data,
       ## variable name found in REDCap dictionary ----
       # compares var name to data dictionary field names
       if (any(str_detect(rc_vars$field_name,paste0("^",imp_vars[i],"$")))) {
-        if(!suppress_txt) cat(paste("\nVariable name found in REDCap:", blue(bold(underline(imp_vars[i])))))
+        if(!suppress_txt) cat(paste0("\nVariable name found in REDCap: ", blue(bold(underline(imp_vars[i])))))
         Sys.sleep(wait)
 
         # options will only be displayed if auto-matching is set to FALSE
         if (!auto_match) {
           cat("\n\nShould the variable be selected with this name?")
           cat("\n\nChoose an option (type and press Enter):\n")
-          cat(prhelp(green(bold("y")),"YES, select variable without renaming."))
-          cat(prhelp(yellow(bold("n")),"NO, rename the variable."))
-          cat(prhelp(yellow("skip"),"do NOT select variable and move to next item"))
-          cat(prhelp(red("exit"),"do NOT select variable and stop loop"))
+          prhelp(green(bold("y")),"YES, select variable without renaming.")
+          prhelp(yellow(bold("n")),"NO, rename the variable.")
+          prhelp(yellow("skip"),"do NOT select variable and move to next item")
+          prhelp(red("exit"),"do NOT select variable and stop loop")
           match_ans <- ""
 
           ## INPUT ----
@@ -316,12 +316,12 @@ redcap_import_select <- function(input_data,
                 match_ans != "n" &&
                 match_ans != "skip" &&
                 match_ans != 'exit') {
-              cat("Please check your answer!")
+              cat("\nPlease check your answer!")
               cat("\n\nChoose an option (type and press Enter):\n")
-              cat(prhelp(green(bold("y")),"YES, select variable without renaming."))
-              cat(prhelp(yellow(bold("n")),"NO, rename the variable."))
-              cat(prhelp(yellow("skip"),"do NOT select variable and move to next item"))
-              cat(prhelp(red("exit"),"do NOT select variable and stop loop"))
+              prhelp(green(bold("y")),"YES, select variable without renaming.")
+              prhelp(yellow(bold("n")),"NO, rename the variable.")
+              prhelp(yellow("skip"),"do NOT select variable and move to next item")
+              prhelp(red("exit"),"do NOT select variable and stop loop")
             }
           }
         } else match_ans <- ""
@@ -335,7 +335,7 @@ redcap_import_select <- function(input_data,
         # skip
         if (match_ans == 'skip') {
           what_to_do <- "no_select"
-          out_txt <- italic("Variable will not be be selected!")
+          out_txt <- italic("Variable will not be selected!")
         }
 
         # exit
@@ -353,7 +353,7 @@ redcap_import_select <- function(input_data,
       ## variable name is not found in REDCap dictionary ...----
       # compares var name to data dictionary field names
       if (!any(str_detect(rc_vars$field_name,paste0("^",imp_vars[i],"$")))) {
-        if(!suppress_txt) cat(paste("\nVariable name", underline("NOT"),"found in REDCap:", blue(bold(underline(imp_vars[i])))),"\n\n")
+        if(!suppress_txt) cat(paste0("\nVariable name ", underline("NOT")," found in REDCap:", blue(bold(underline(imp_vars[i])))),"\n\n")
         Sys.sleep(wait)
       }
 
@@ -397,16 +397,16 @@ redcap_import_select <- function(input_data,
             }
             Sys.sleep(wait)
 
-            cat(paste("\n\nWhat would you like to do for", blue(bold(underline(imp_vars[i])))),"?")
+            cat(paste0("\n\nWhat would you like to do for ", blue(bold(underline(imp_vars[i])))),"?")
             cat("\n\nChoose an option (type and press Enter):\n")
             cat(paste0("To ",green("rename")," the variable, type the field name or choose the respective number from the list above!\n"))
-            cat(prhelp(yellow("select"),"select the variable anyway (without renaming)",14))
-            cat(prhelp(yellow("skip"),"do NOT select variable and move to next item",14))
-            cat(prhelp(yellow(bold("n")),"move to next batch",14))
-            cat(prhelp(yellow(bold("p")),"move to previous batch",14))
-            cat(prhelp(magenta("adjust sim"),"adjust the similarity index to see more/less suggestions",14))
-            cat(prhelp(magenta("adjust batch"),"adjust the batch size to see more/less variables",14))
-            cat(prhelp(red("exit"),"stop loop",14))
+            prhelp(yellow("select"),"select the variable anyway (without renaming)",14)
+            prhelp(yellow("skip"),"do NOT select variable and move to next item",14)
+            prhelp(yellow(bold("n")),"move to next batch",14)
+            prhelp(yellow(bold("p")),"move to previous batch",14)
+            prhelp(magenta("adjust sim"),"adjust the similarity index to see more/less suggestions",14)
+            prhelp(magenta("adjust batch"),"adjust the batch size to see more/less variables",14)
+            prhelp(red("exit"),"stop loop",14)
             nomatch_ans <- ""
 
             ### INPUT ----
@@ -431,16 +431,16 @@ redcap_import_select <- function(input_data,
                   nomatch_ans != 'adjust batch'&&
                   nomatch_ans != 'exit') {
 
-                cat("Please check your answer!")
+                cat("\nPlease check your answer!")
                 cat("\n\nChoose an option (type and press Enter):\n")
                 cat(paste0("To ",green("rename")," the variable, type the field name or choose the respective number from the list above!\n"))
-                cat(prhelp(yellow("select"),"select the variable anyway (without renaming)",14))
-                cat(prhelp(yellow("skip"),"do NOT select variable and move to next item",14))
-                cat(prhelp(yellow(bold("n")),"move to next batch",14))
-                cat(prhelp(yellow(bold("p")),"move to previous batch",14))
-                cat(prhelp(magenta("adjust sim"),"adjust the similarity index to see more/less suggestions",14))
-                cat(prhelp(magenta("adjust batch"),"adjust the batch size to see more/less variables",14))
-                cat(prhelp(red("exit"),"stop loop",14))
+                prhelp(yellow("select"),"select the variable anyway (without renaming)",14)
+                prhelp(yellow("skip"),"do NOT select variable and move to next item",14)
+                prhelp(yellow(bold("n")),"move to next batch",14)
+                prhelp(yellow(bold("p")),"move to previous batch",14)
+                prhelp(magenta("adjust sim"),"adjust the similarity index to see more/less suggestions",14)
+                prhelp(magenta("adjust batch"),"adjust the batch size to see more/less variables",14)
+                prhelp(red("exit"),"stop loop",14)
                 nomatch_ans <- ""
               }
             }
@@ -596,26 +596,26 @@ redcap_import_select <- function(input_data,
       if (continue) {
         cat("\nContinue?")
         cat("\n\nChoose an option (type and press Enter):\n")
-        cat(prhelp(green(bold("y")),"YES",15))
-        cat(prhelp(yellow(bold("n")),"NO (repeat same variable)",15))
+        prhelp(green(bold("y")),"YES",15)
+        prhelp(yellow(bold("n")),"NO (repeat same variable)",15)
 
         # show options to switch on/off auto-matching depending on whether matching var has been found
         if (any(str_detect(rc_vars$field_name,paste0("^",imp_vars[i],"$"))) & auto_match) {
-          cat(prhelp(magenta("auto_match off"),"turn off auto-selecting for matching variables",15))
+          prhelp(magenta("auto_match off"),"turn off auto-selecting for matching variables",15)
         }
         if (any(str_detect(rc_vars$field_name,paste0("^",imp_vars[i],"$"))) & !auto_match){
-          cat(prhelp(magenta("auto_match on"),"turn on auto-selecting for matching variables",15))
+          prhelp(magenta("auto_match on"),"turn on auto-selecting for matching variables",15)
         }
 
         # show options to switch on/off auto-skipping depending on whether matching var has not been found
         if (!any(str_detect(rc_vars$field_name,paste0("^",imp_vars[i],"$"))) & auto_skip_nomatch) {
-          cat(prhelp(magenta("auto_skip off"),"turn off auto-skipping for non-matching variables",15))
+          prhelp(magenta("auto_skip off"),"turn off auto-skipping for non-matching variables",15)
         }
         if (!any(str_detect(rc_vars$field_name,paste0("^",imp_vars[i],"$"))) & !auto_skip_nomatch) {
-          cat(prhelp(magenta("auto_skip on"),"turn on auto-skipping for non-matching variables",15))
+          prhelp(magenta("auto_skip on"),"turn on auto-skipping for non-matching variables",15)
         }
 
-        cat(prhelp(red("exit"),"stop loop",15))
+        prhelp(red("exit"),"stop loop",15)
         cont_ans <- ""
 
         ### INPUT ----
@@ -637,23 +637,23 @@ redcap_import_select <- function(input_data,
               cont_ans != 'auto_skip off' &&
               cont_ans != 'exit') {
 
-            cat("Please check your answer!")
+            cat("\nPlease check your answer!")
             cat("\n\nChoose an option (type and press Enter):\n")
-            cat(prhelp(green(bold("y")),"YES",15))
-            cat(prhelp(yellow(bold("n")),"NO (repeat same variable)",15))
+            prhelp(green(bold("y")),"YES",15)
+            prhelp(yellow(bold("n")),"NO (repeat same variable)",15)
             if (any(str_detect(rc_vars$field_name,paste0("^",imp_vars[i],"$"))) & auto_match) {
-              cat(prhelp(magenta("auto_match off"),"turn off auto-selecting for matching variables",15))
+              prhelp(magenta("auto_match off"),"turn off auto-selecting for matching variables",15)
             }
             if (any(str_detect(rc_vars$field_name,paste0("^",imp_vars[i],"$"))) & !auto_match){
-              cat(prhelp(magenta("auto_match on"),"turn on auto-selecting for matching variables",15))
+              prhelp(magenta("auto_match on"),"turn on auto-selecting for matching variables",15)
             }
             if (!any(str_detect(rc_vars$field_name,paste0("^",imp_vars[i],"$"))) & auto_skip_nomatch) {
-              cat(prhelp(magenta("auto_skip off"),"turn off auto-skipping for non-matching variables",15))
+              prhelp(magenta("auto_skip off"),"turn off auto-skipping for non-matching variables",15)
             }
             if (!any(str_detect(rc_vars$field_name,paste0("^",imp_vars[i],"$"))) & !auto_skip_nomatch) {
-              cat(prhelp(magenta("auto_skip on"),"turn on auto-skipping for non-matching variables",15))
+              prhelp(magenta("auto_skip on"),"turn on auto-skipping for non-matching variables",15)
             }
-            cat(prhelp(red("exit"),"stop loop",15))
+            prhelp(red("exit"),"stop loop",15)
             cont_ans <- ""
           }
         }
