@@ -1323,7 +1323,7 @@ redcap_import_recode <- function(input_data,
 
       if (contconv_ans == 'd') {
 
-        # set change_pot_miss to TRUE so that conversion-part is skipped
+        # set change_cb_delims to TRUE so that conversion-part is skipped
         change_cb_delims <- TRUE
 
         cat(bold(underline("\nCurrently set as Delimiters:\n")))
