@@ -302,7 +302,7 @@ redcap_import_select <- function(input_data,
           cat("\n\nChoose an option (type and press Enter):\n")
           prhelp(green(bold("y")),"YES, select variable without renaming.")
           prhelp(yellow(bold("n")),"NO, rename the variable.")
-          prhelp(yellow("skip"),"do NOT select variable and move to next item")
+          prhelp(yellow("skip"),"do NOT select variable and move to next variable")
           prhelp(red("exit"),"do NOT select variable and stop loop")
           match_ans <- ""
 
@@ -320,7 +320,7 @@ redcap_import_select <- function(input_data,
               cat("\n\nChoose an option (type and press Enter):\n")
               prhelp(green(bold("y")),"YES, select variable without renaming.")
               prhelp(yellow(bold("n")),"NO, rename the variable.")
-              prhelp(yellow("skip"),"do NOT select variable and move to next item")
+              prhelp(yellow("skip"),"do NOT select variable and move to next variable")
               prhelp(red("exit"),"do NOT select variable and stop loop")
             }
           }
@@ -401,7 +401,7 @@ redcap_import_select <- function(input_data,
             cat("\n\nChoose an option (type and press Enter):\n")
             cat(paste0("To ",green("rename")," the variable, type the field name or choose the respective number from the list above!\n"))
             prhelp(yellow("select"),"select the variable anyway (without renaming)",14)
-            prhelp(yellow("skip"),"do NOT select variable and move to next item",14)
+            prhelp(yellow("skip"),"do NOT select variable and move to next variable",14)
             prhelp(yellow(bold("n")),"move to next batch",14)
             prhelp(yellow(bold("p")),"move to previous batch",14)
             prhelp(magenta("adjust sim"),"adjust the similarity index to see more/less suggestions",14)
@@ -435,7 +435,7 @@ redcap_import_select <- function(input_data,
                 cat("\n\nChoose an option (type and press Enter):\n")
                 cat(paste0("To ",green("rename")," the variable, type the field name or choose the respective number from the list above!\n"))
                 prhelp(yellow("select"),"select the variable anyway (without renaming)",14)
-                prhelp(yellow("skip"),"do NOT select variable and move to next item",14)
+                prhelp(yellow("skip"),"do NOT select variable and move to next variable",14)
                 prhelp(yellow(bold("n")),"move to next batch",14)
                 prhelp(yellow(bold("p")),"move to previous batch",14)
                 prhelp(magenta("adjust sim"),"adjust the similarity index to see more/less suggestions",14)
@@ -679,7 +679,7 @@ redcap_import_select <- function(input_data,
         Sys.sleep(wait)
       }
 
-      ### turn on/of auto skipping ----
+      ### turn on/off auto skipping ----
       if (cont_ans == 'auto_skip on') {
         auto_skip_nomatch <- TRUE
         if(!suppress_txt) cat("\nAuto-skipping of non-matching variables has been turned on!\n\nRepeating current variable....\n\n")

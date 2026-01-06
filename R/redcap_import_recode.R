@@ -866,8 +866,8 @@ redcap_import_recode <- function(input_data,
           } else if (conv_to == 'int') {
 
             if (change_round) {
-              converted_var <- if_else(round(as.numeric(var)) %% 1 == 0,as.integer(var),NA)
-              log_default <- paste0("as.character(as.integer(",name,"))")
+              converted_var <- if_else(is.numeric(var),as.integer(var),NA)
+              log_default <- paste0("as.character(as.integer(round(as.numeric(",name,"))))")
 
             } else {
               converted_var <- if_else(as.numeric(var) %% 1 == 0,as.integer(var),NA)
@@ -1048,11 +1048,11 @@ redcap_import_recode <- function(input_data,
           } else if (conv_to == 'slider') {
 
             if (change_round) {
-              converted_var <- if_else(round(as.numeric(var)) %% 1 == 0 &
+              converted_var <- if_else(is.numeric(var) &
                                          as.numeric(var) >= rc_min &
                                          as.numeric(var) <= rc_max,
                                        as.integer(var),NA)
-              log_default <- paste0("as.character(as.integer(",name,"))")
+              log_default <- paste0("as.character(as.integer(round(as.numeric(",name,"))))")
 
             } else {
               converted_var <- if_else(as.numeric(var) %% 1 == 0 &
