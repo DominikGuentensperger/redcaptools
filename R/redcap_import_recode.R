@@ -253,9 +253,9 @@ redcap_import_recode <- function(input_data,
 
 
     intro_ans <- ""
-    while (intro_ans != 1) {
+    while (intro_ans != "1") {
       intro_ans <- readline(prompt="Type '1' to continue: ")
-      if (intro_ans != 1) {
+      if (intro_ans != "1") {
         cat("\nPlease check your answer! (Press 'ESC' to cancel)")
       }
     }
@@ -363,9 +363,9 @@ redcap_import_recode <- function(input_data,
 
 
     intro_ans <- ""
-    while (intro_ans != 1) {
+    while (intro_ans != "1") {
       intro_ans <- readline(prompt="Type '1' to continue: ")
-      if (intro_ans != 1) {
+      if (intro_ans != "1") {
         cat("\nPlease check your answer! (Press 'ESC' to cancel)")
       }
     }
@@ -866,7 +866,7 @@ redcap_import_recode <- function(input_data,
           } else if (conv_to == 'int') {
 
             if (change_round) {
-              converted_var <- if_else(is.numeric(var),as.integer(var),NA)
+              converted_var <- if_else(round(as.numeric(var)) %% 1 == 0,as.integer(var),NA)
               log_default <- paste0("as.character(as.integer(round(as.numeric(",name,"))))")
 
             } else {
@@ -1048,7 +1048,7 @@ redcap_import_recode <- function(input_data,
           } else if (conv_to == 'slider') {
 
             if (change_round) {
-              converted_var <- if_else(is.numeric(var) &
+              converted_var <- if_else(round(as.numeric(var)) %% 1 == 0 &
                                          as.numeric(var) >= rc_min &
                                          as.numeric(var) <= rc_max,
                                        as.integer(var),NA)
@@ -1719,7 +1719,7 @@ redcap_import_recode <- function(input_data,
             prhelp(green(bold("y")),"YES, recode as suggested")
             prhelp(yellow(bold("n")),"NO, recode manually")
             if (nrow(sugg_coding) > 0) {
-              prhelp(yellow(bold("p")),"change precision of matching for the recoding suggestions")
+              prhelp(yellow(bold("p")),"change similarity index for the recoding suggestions")
             }
             prhelp(red("skip"),"do NOT recode and move to next variable.")
             prhelp(red("exit"),"do NOT recode and stop loop.")
